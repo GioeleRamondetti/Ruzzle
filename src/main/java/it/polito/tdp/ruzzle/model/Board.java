@@ -14,8 +14,11 @@ import javafx.beans.property.StringProperty;
  *
  */
 public class Board {
-	private List<Pos> positions;
-	private Map<Pos, StringProperty> cells;
+	private List<Pos> positions;// identifica una posizione in una matrice
+	private Map<Pos, StringProperty> cells; // StringProperty è una classe cheinclude una stringa che tramite un dinding si possono associare ad un 
+	//elemento dell'interfaccia grafica ,ogni alemento della matrice è un bottone 
+	// la string property mi permette di non fare il settext di ogni elemento cioe ogni volta che faccio il reset il testo delle caselle cambia 
+	//in automatico cambiando l'interfaccia sottostante quindi il settext è fatto in automatico
 
 	private int size;
 

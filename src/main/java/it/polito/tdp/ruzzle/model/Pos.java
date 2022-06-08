@@ -7,7 +7,7 @@ package it.polito.tdp.ruzzle.model;
 public class Pos {
 	private int row;
 	private int col;
-
+//identificano una posizione
 	public Pos(int row, int col) {
 		super();
 		this.row = row;

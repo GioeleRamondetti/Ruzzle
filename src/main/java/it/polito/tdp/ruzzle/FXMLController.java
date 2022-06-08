@@ -2,6 +2,7 @@ package it.polito.tdp.ruzzle;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,8 @@ public class FXMLController {
 	
 	//corrispondenza bottoni dell'interfaccia grafica <-> caselle della Board 
 	private Map<Pos,Button> letters ;
+	// questa mappa è per avere una corrispondenza fra i bottoni e la loro posizione
+	// le posizioni sono dei veri e propri bottoni con le lettere
 	
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -90,7 +93,10 @@ public class FXMLController {
 
     @FXML
     void handleProva(ActionEvent event) {
-    		
+    	//provare una singola parola
+    	for(Pos p:letters.keySet()) {
+    		letters.get(p).setDefaultButton(false);// pulisco l'interfaccia grafica
+    	}
     	String parola = txtParola.getText() ;
     	if(parola.length() <= 1) {
     		txtResult.setText("Devi inserire parole di almeno 2 lettere");
@@ -104,6 +110,12 @@ public class FXMLController {
     	}
     	
     	//TODO
+    	List<Pos> posizioni=this.model.trovaparola(parola);
+    	if(posizioni!=null) {
+    		for(Pos p:posizioni) {
+    			letters.get(p).setDefaultButton(true);
+    		}
+    	}
     }
 
     @FXML
@@ -114,6 +126,19 @@ public class FXMLController {
     @FXML
     void handleRisolvi(ActionEvent event) {
     	//TODO
+    	//APPROCCIO 1
+    	//parto da una lettera  es a "esiste una parola che inizia con a" SI vado avanti trovo a esiste una parola cheinizia con aa no backtraking
+    	// ogni parola che trovo che è contenuta i un set con tutte le parole di dizionario la salvo e la metto poi nel text board
+    	//APPROCCIO 2
+    	//io so gia che le parole possibili sono quelle nel dizionario , le scorro tutte per ogni parola vado a cercare nella matrice se la parola esiste o 
+    	// non esiste, se esite la prendo e me la salvo per poi stamparla
+    	//PROVO A FARE APPROCCIO 2
+    	txtResult.clear();
+    	List<String > tutte=this.model.trovaTutte();
+    	txtResult.appendText("ho trovato "+tutte.size()+" parole");
+    	for(String s :tutte) {
+    		txtResult.appendText(s+"\n");
+    	}
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
